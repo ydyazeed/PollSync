@@ -1,63 +1,82 @@
-import Image from "next/image";
+'use client';
+
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import Link from 'next/link';
+import { Navbar } from '@/components/navbar';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen">
+      <Navbar />
+      
+      <main className="container mx-auto px-4 py-20">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
+            Real-time Opinion Polling
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          
+          <p className="text-xl text-white max-w-2xl mx-auto">
+            Create polls, share codes, and watch results update live.
+            No registration required for voters.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          
+          <div className="grid md:grid-cols-2 gap-6 mt-12 max-w-3xl mx-auto">
+            <Card className="p-8 hover:border-primary transition-colors bg-gradient-to-br from-card to-card/50">
+              <div className="space-y-4">
+                <h2 className="text-2xl font-semibold">Create a Poll</h2>
+                <p className="text-muted-foreground">
+                  Set up your poll with custom options and get instant access codes
+                </p>
+                <Link href="/admin/login">
+                  <Button className="w-full" size="lg">
+                    Get Started
+                  </Button>
+                </Link>
+              </div>
+            </Card>
+            
+            <Card className="p-8 hover:border-primary transition-colors bg-gradient-to-br from-card to-card/50">
+              <div className="space-y-4">
+                <h2 className="text-2xl font-semibold">I Have a Code</h2>
+                <p className="text-muted-foreground">
+                  Enter your access code to participate in a poll
+                </p>
+                <Link href="/vote">
+                  <Button variant="outline" className="w-full" size="lg">
+                    Enter Code
+                  </Button>
+                </Link>
+              </div>
+            </Card>
+          </div>
+          
+          <div className="mt-20 pt-20 border-t border-border">
+            <h3 className="text-2xl font-semibold mb-8">How it works</h3>
+            <div className="grid md:grid-cols-3 gap-8 text-left">
+              <div className="space-y-2">
+                <div className="text-3xl font-bold text-primary">1</div>
+                <h4 className="font-semibold">Create Your Poll</h4>
+                <p className="text-sm text-muted-foreground">
+                  Sign up as an admin and create a poll with your questions and options
+                </p>
+              </div>
+              <div className="space-y-2">
+                <div className="text-3xl font-bold text-primary">2</div>
+                <h4 className="font-semibold">Share the Code</h4>
+                <p className="text-sm text-muted-foreground">
+                  Get a unique access code and share it with your audience
+                </p>
+              </div>
+              <div className="space-y-2">
+                <div className="text-3xl font-bold text-primary">3</div>
+                <h4 className="font-semibold">Watch Results Live</h4>
+                <p className="text-sm text-muted-foreground">
+                  See votes come in real-time with beautiful visualizations
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>
