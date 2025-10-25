@@ -110,18 +110,18 @@ export default function AdminDashboard() {
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-bold">Admin Dashboard</h1>
             <p className="text-muted-foreground">Manage your polls</p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
             <Link href="/admin/new">
-              <Button size="lg">
+              <Button size="lg" className="w-full sm:w-auto">
                 Create New Poll
               </Button>
             </Link>
-            <Button variant="outline" size="lg" onClick={handleSignOut}>
+            <Button variant="outline" size="lg" onClick={handleSignOut} className="w-full sm:w-auto">
               Sign Out
             </Button>
           </div>
@@ -148,49 +148,52 @@ export default function AdminDashboard() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Poll Title</TableHead>
-                    <TableHead>Access Code</TableHead>
-                    <TableHead>Total Votes</TableHead>
-                    <TableHead>Created</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {polls.map((poll) => (
-                    <TableRow key={poll.id}>
-                      <TableCell className="font-medium">{poll.title}</TableCell>
-                      <TableCell>
-                        <Badge variant="secondary" className="font-mono">
-                          {poll.access_code}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{poll.total_votes}</TableCell>
-                      <TableCell>
-                        {new Date(poll.created_at).toLocaleDateString()}
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex gap-2">
-                          <Link href={`/admin/poll/${poll.id}`}>
-                            <Button variant="outline" size="sm">
-                              View Results
-                            </Button>
-                          </Link>
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => handleDeletePoll(poll.id)}
-                          >
-                            Delete
-                          </Button>
-                        </div>
-                      </TableCell>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Poll Title</TableHead>
+                      <TableHead>Access Code</TableHead>
+                      <TableHead>Total Votes</TableHead>
+                      <TableHead>Created</TableHead>
+                      <TableHead>Actions</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {polls.map((poll) => (
+                      <TableRow key={poll.id}>
+                        <TableCell className="font-medium">{poll.title}</TableCell>
+                        <TableCell>
+                          <Badge variant="secondary" className="font-mono">
+                            {poll.access_code}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>{poll.total_votes}</TableCell>
+                        <TableCell>
+                          {new Date(poll.created_at).toLocaleDateString()}
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex flex-col sm:flex-row gap-2">
+                            <Link href={`/admin/poll/${poll.id}`}>
+                              <Button variant="outline" size="sm" className="w-full sm:w-auto">
+                                View Results
+                              </Button>
+                            </Link>
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              onClick={() => handleDeletePoll(poll.id)}
+                              className="w-full sm:w-auto"
+                            >
+                              Delete
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
           </Card>
         )}
