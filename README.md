@@ -1,5 +1,7 @@
 # PollSync - Real-time Opinion Polling System
 
+**🌐 Live Demo:** [https://poll-sync.vercel.app](https://poll-sync.vercel.app)
+
 A modern, real-time polling application built with Next.js, Supabase, and shadcn/ui. Create polls, share access codes, and watch results update live!
 
 ## Features
@@ -36,47 +38,6 @@ A modern, real-time polling application built with Next.js, Supabase, and shadcn
 - **Real-time:** Supabase Realtime
 - **Charts:** Recharts
 - **Deployment:** Vercel
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+ installed
-- A Supabase account
-- npm or pnpm
-
-### Installation
-
-1. Clone the repository and install dependencies:
-
-```bash
-cd pollsync
-npm install
-```
-
-2. Set up environment variables:
-
-Create a `.env.local` file with:
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-CODE_HASH_SECRET=your_secret_key_for_hashing_codes
-```
-
-3. The database schema is already set up! The following tables exist:
-   - `polls` - Poll information
-   - `poll_options` - Poll choices
-   - `access_codes` - Secure access codes
-   - `votes` - Vote records
-
-4. Run the development server:
-
-```bash
-npm run dev
-```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Usage
 
@@ -192,44 +153,33 @@ pollsync/
 - ✅ Admin-only poll creation and management
 - ✅ Secure API routes with authentication checks
 
-## Deployment to Vercel
+## Architecture
 
-1. **Push to GitHub**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git remote add origin your-repo-url
-   git push -u origin main
-   ```
+### Current Architecture (Supabase + Vercel)
 
-2. **Deploy to Vercel**
-   - Go to [vercel.com](https://vercel.com)
-   - Click "New Project"
-   - Import your GitHub repository
-   - Configure environment variables:
-     - `NEXT_PUBLIC_SUPABASE_URL`
-     - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-     - `CODE_HASH_SECRET`
-   - Click "Deploy"
+![Current Architecture](current-architecture.png)
 
-3. **Configure Supabase**
-   - Add your Vercel domain to Supabase Auth allowed URLs
-   - Go to Supabase Dashboard > Authentication > URL Configuration
-   - Add your production URL
+The current implementation uses a modern serverless architecture with Supabase and Vercel:
 
-4. **Test Production**
-   - Visit your deployed URL
-   - Create a test poll
-   - Test voting and real-time updates
+- **Frontend**: Next.js hosted on Vercel
+- **Database**: Supabase PostgreSQL with real-time capabilities
+- **Authentication**: Supabase Auth for admin login
+- **Real-time**: Supabase Realtime (CDC) for live updates
+- **API**: Next.js API routes on Vercel serverless functions
 
-## Environment Variables
+### Scalable Production Architecture (AWS)
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | Yes |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase anonymous key | Yes |
-| `CODE_HASH_SECRET` | Secret for hashing access codes | Yes |
+![Scalable Production Architecture](scalable-production-architecture.png)
+
+For high-scale production deployments, the system can be migrated to AWS with:
+
+- **CDN**: CloudFront for global content delivery
+- **API Gateway**: Centralized API management
+- **Serverless Functions**: AWS Lambda for vote processing
+- **Database**: DynamoDB for high-performance data storage
+- **Message Queue**: SQS for asynchronous processing
+- **Notifications**: SNS for real-time updates
+- **UUID Management**: Dedicated service for voter identification
 
 ## Features in Detail
 
@@ -260,24 +210,5 @@ pollsync/
 - Clear browser cookies and log in again
 - Check Supabase email confirmation status
 
-### Votes not updating in real-time
-- Check your Supabase Realtime settings
-- Ensure RLS policies allow reading votes
-- Check browser console for WebSocket errors
-
-### Access code not working
-- Codes are case-insensitive but must match format XX XX-XX
-- Make sure the poll hasn't been deleted
-- Check if the code is active in the database
-
-## License
-
-MIT License - feel free to use for personal or commercial projects!
-
-## Support
-
-For issues or questions, please open an issue on GitHub.
-
----
 
 Built with ❤️ using Next.js, Supabase, and shadcn/ui

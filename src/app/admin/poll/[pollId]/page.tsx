@@ -220,6 +220,7 @@ export default function AdminPollResultsPage() {
                         <Tooltip
                           contentStyle={{ backgroundColor: '#1a1a1a', border: '1px solid #333' }}
                           labelStyle={{ color: '#fff' }}
+                          cursor={{ fill: 'transparent' }}
                         />
                         <Bar dataKey="votes" fill="#1441D0" />
                       </BarChart>
